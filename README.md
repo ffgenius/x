@@ -8,13 +8,6 @@ Crafting exceptional AI interface solutions, leading the new intelligent experie
 
 Vue 3 component library based on Ant Design X.
 
-[![CI status][github-action-image]][github-action-url]
-[![codecov][codecov-image]][codecov-url]
-[![NPM version][npm-image]][npm-url]
-[![NPM downloads][download-image]][download-url]
-[![][jsdelivr-image]][jsdelivr-url]
-[![][nuxt-image]][nuxt-url]
-
 English · [中文](./README.zh-CN.md)
 
 </div>

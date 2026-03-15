@@ -8,13 +8,6 @@
 
 基于 Ant Design X 设计体系的 Vue 3 组件库。
 
-[![CI status][github-action-image]][github-action-url]
-[![codecov][codecov-image]][codecov-url]
-[![NPM version][npm-image]][npm-url]
-[![NPM downloads][download-image]][download-url]
-[![][jsdelivr-image]][jsdelivr-url]
-[![][nuxt-image]][nuxt-url]
-
 [English](./README.md) · 中文
 
 </div>
