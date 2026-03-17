@@ -9,7 +9,7 @@ function mainSide() {
     Tooltip,
     { title: "main side" },
     {
-      default: () => h(Avatar, { size: "small", icon: h(UserOutlined) }),
+      default: () => h(Avatar, { icon: h(UserOutlined) }),
     },
   );
 }
@@ -19,14 +19,7 @@ function extraSide() {
     Tooltip,
     { title: "extra side" },
     {
-      default: () =>
-        h(
-          Button,
-          { type: "text", size: "small" },
-          {
-            default: () => h(CopyOutlined),
-          },
-        ),
+      default: () => h(CopyOutlined),
     },
   );
 }
