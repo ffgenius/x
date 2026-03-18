@@ -125,12 +125,12 @@ const styleState = useStyles();
       </a-typography>
 
       <a-flex gap="large" class="antdv-home-preview-banner-buttons">
-        <a-button class="antdv-home-banner-btn start-btn" href="/docs">
+        <a-button class="antdv-home-banner-btn start-btn" href="/components">
           {{ t("home.start") }}
         </a-button>
         <a-button
           class="antdv-home-banner-btn design-btn"
-          href="https://github.com/antdv-next/antdv-next-x"
+          href="https://x.ant.design/docs/spec/introduce-cn"
           target="_blank"
         >
           {{ t("home.design") }}
