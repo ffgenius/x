@@ -39,7 +39,7 @@ description: Used to switch between multiple agents, update conversation turns, 
 | `creation`         | New conversation configuration                                          | `CreationProps`                                                                                 | -       |
 | `styles`           | Semantic structure styles                                               | `Partial<Record<'root' \| 'creation' \| 'group' \| 'item', CSSProperties>>`                     | -       |
 | `classes`          | Semantic structure class names                                          | `Partial<Record<'root' \| 'creation' \| 'group' \| 'item', string>>`                            | -       |
-| `rootClassName`    | Root node className                                                     | `string`                                                                                        | -       |
+| `rootClass`        | Root node className                                                     | `string`                                                                                        | -       |
 
 ### ItemType
 
