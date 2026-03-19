@@ -83,13 +83,13 @@ describe("Bubble.System", () => {
     expect(wrapper.find(".antd-bubble-content-corner").exists()).toBe(true);
   });
 
-  it("supports class, style and rootClassName", () => {
+  it("supports class, style and rootClass", () => {
     const wrapper = mount(SystemBubble, {
       props: {
         content: "测试",
         class: "custom-class",
         style: { padding: "10px" },
-        rootClassName: "root-class",
+        rootClass: "root-class",
       },
     });
 

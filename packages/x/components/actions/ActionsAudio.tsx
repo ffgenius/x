@@ -12,7 +12,7 @@ type SemanticType = "root" | "default" | "running" | "error" | "loading";
 export interface ActionsAudioProps {
   status?: ActionsItemProps["status"];
   prefixCls?: string;
-  rootClassName?: string;
+  rootClass?: string;
   class?: ClassValue;
   style?: StyleValue;
   classes?: Partial<Record<SemanticType, string>>;
@@ -30,7 +30,7 @@ const ActionsAudio = defineComponent({
       type: String,
       default: "antd-actions",
     },
-    rootClassName: {
+    rootClass: {
       type: String,
       default: "",
     },
@@ -68,8 +68,8 @@ const ActionsAudio = defineComponent({
         style={props.style}
         styles={props.styles}
         class={props.class}
-        rootClassName={[
-          props.rootClassName,
+        rootClass={[
+          props.rootClass,
           props.classes?.root,
           props.prefixCls,
           audioCls,

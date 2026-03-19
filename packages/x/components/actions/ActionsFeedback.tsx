@@ -23,7 +23,7 @@ export interface ActionsFeedbackProps {
   value?: `${FEEDBACK_VALUE}`;
   onChange?: (value: `${FEEDBACK_VALUE}`) => void;
   prefixCls?: string;
-  rootClassName?: string;
+  rootClass?: string;
   class?: ClassValue;
   style?: StyleValue;
   classes?: Partial<Record<SemanticType, string>>;
@@ -46,7 +46,7 @@ const ActionsFeedback = defineComponent({
       type: String,
       default: "antd-actions",
     },
-    rootClassName: {
+    rootClass: {
       type: String,
       default: "",
     },
@@ -95,7 +95,7 @@ const ActionsFeedback = defineComponent({
           feedbackCls,
           hashId.value,
           cssVarCls.value,
-          props.rootClassName,
+          props.rootClass,
           props.classes?.root,
           `${props.prefixCls}-list`,
           attrs.class,

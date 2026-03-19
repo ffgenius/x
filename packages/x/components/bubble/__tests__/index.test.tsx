@@ -11,7 +11,7 @@ describe("Bubble", () => {
     const wrapper = mount(Bubble, {
       props: {
         prefixCls: "custom-bubble",
-        rootClassName: "root-class",
+        rootClass: "root-class",
         class: "custom-class",
         style: { margin: "10px" },
         classes: { content: "content-class" },

@@ -76,7 +76,7 @@ describe("Bubble.List", () => {
         items: mockItems,
         class: "custom-class",
         style: { backgroundColor: "red" },
-        rootClassName: "root-class",
+        rootClass: "root-class",
       },
     });
 

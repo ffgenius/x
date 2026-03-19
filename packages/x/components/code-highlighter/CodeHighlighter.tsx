@@ -96,7 +96,7 @@ export const XCodeHighlighter = defineComponent({
       type: Function as PropType<CodeHighlighterProps["onCopy"]>,
       default: undefined,
     },
-    rootClassName: {
+    rootClass: {
       type: String,
       default: "",
     },
@@ -271,7 +271,7 @@ export const XCodeHighlighter = defineComponent({
         class={[
           props.prefixCls,
           `${props.prefixCls}-${props.theme}`,
-          props.rootClassName,
+          props.rootClass,
           props.classes?.root,
           hashId.value,
           cssVarCls.value,

@@ -78,7 +78,7 @@ export interface FileCardProps extends Omit<
   styles?: Partial<Record<SemanticType, CSSProperties>>;
   class?: ClassValue;
   classes?: Partial<Record<SemanticType, string>>;
-  rootClassName?: string;
+  rootClass?: string;
   key?: string | number;
   name: string;
   byte?: number;
@@ -211,7 +211,7 @@ const FileCard = defineComponent({
       type: Object as PropType<Partial<Record<SemanticType, string>>>,
       default: () => ({}),
     },
-    rootClassName: {
+    rootClass: {
       type: String,
       default: "",
     },
@@ -437,7 +437,7 @@ const FileCard = defineComponent({
           props.prefixCls,
           contextConfig.value.className,
           contextConfig.value.classes?.root,
-          props.rootClassName,
+          props.rootClass,
           props.classes?.root,
           hashId.value,
           cssVarCls.value,

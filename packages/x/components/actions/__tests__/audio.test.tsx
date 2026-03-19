@@ -52,10 +52,10 @@ describe("ActionsAudio", () => {
     expect(wrapper.find(".my-prefix-audio").exists()).toBe(true);
   });
 
-  it("supports rootClassName", () => {
+  it("supports rootClass", () => {
     const wrapper = mount(ActionsAudio, {
       props: {
-        rootClassName: "root-audio",
+        rootClass: "root-audio",
       },
     });
 

@@ -30,7 +30,7 @@ export interface FileCardListProps {
   prefixCls?: string;
   class?: ClassValue;
   classes?: Partial<Record<SemanticType | CardSemanticType, string>>;
-  rootClassName?: string;
+  rootClass?: string;
   style?: StyleValue;
   styles?: Partial<Record<SemanticType | CardSemanticType, CSSProperties>>;
   items: FileCardProps[];
@@ -58,7 +58,7 @@ const List = defineComponent({
       >,
       default: () => ({}),
     },
-    rootClassName: {
+    rootClass: {
       type: String,
       default: "",
     },
@@ -210,7 +210,7 @@ const List = defineComponent({
       <div
         class={[
           compCls.value,
-          props.rootClassName,
+          props.rootClass,
           splitClasses.value.root,
           hashId.value,
           cssVarCls.value,

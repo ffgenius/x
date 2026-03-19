@@ -17,7 +17,7 @@ export interface ActionsCopyProps {
   text?: string;
   icon?: VNodeChild;
   prefixCls?: string;
-  rootClassName?: string;
+  rootClass?: string;
   class?: ClassValue;
   style?: StyleValue;
   classes?: Partial<Record<SemanticType, string>>;
@@ -40,7 +40,7 @@ const ActionsCopy = defineComponent({
       type: String,
       default: "antd-actions",
     },
-    rootClassName: {
+    rootClass: {
       type: String,
       default: "",
     },
@@ -82,7 +82,7 @@ const ActionsCopy = defineComponent({
           `${props.prefixCls}-item`,
           hashId.value,
           cssVarCls.value,
-          props.rootClassName,
+          props.rootClass,
           props.classes?.root,
           attrs.class,
           props.class,

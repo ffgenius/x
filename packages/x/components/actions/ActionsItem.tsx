@@ -27,7 +27,7 @@ export interface ActionsItemProps {
   label?: string;
   runningIcon?: VNodeChild;
   prefixCls?: string;
-  rootClassName?: string;
+  rootClass?: string;
   class?: ClassValue;
   style?: StyleValue;
   classes?: Partial<Record<SemanticType, string>>;
@@ -58,7 +58,7 @@ const ActionsItem = defineComponent({
       type: String,
       default: "antd-actions",
     },
-    rootClassName: {
+    rootClass: {
       type: String,
       default: "",
     },
@@ -112,7 +112,7 @@ const ActionsItem = defineComponent({
             `${props.prefixCls}-item`,
             hashId.value,
             cssVarCls.value,
-            props.rootClassName,
+            props.rootClass,
             props.classes?.root,
             props.classes?.[props.status],
             attrs.class,
