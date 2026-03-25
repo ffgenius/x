@@ -13,6 +13,7 @@ import CodeHighlighter from "./code-highlighter";
 import Conversations, { ConversationsCreation } from "./conversations";
 import FileCard, { FileCardList } from "./file-card";
 import Notification, { XNotification } from "./notification";
+import Prompts from "./prompts";
 import Sender, { SenderHeader, SenderSwitch } from "./sender";
 import Sources from "./sources";
 import Think from "./think";
@@ -30,6 +31,7 @@ const components = [
   ConversationsCreation,
   XProvider,
   Actions,
+  Prompts,
   Sources,
   Welcome,
   ActionsAudio,
@@ -103,6 +105,7 @@ export {
   Sender,
   SenderHeader,
   SenderSwitch,
+  Prompts,
   XProvider,
   version,
   Sources,
@@ -132,6 +135,16 @@ export type {
 } from "./bubble";
 
 export type { FileCardListProps, FileCardProps } from "./file-card";
+
+export type {
+  BasePromptsItemType,
+  PromptDataItem,
+  PromptsClickInfo,
+  PromptsItemType,
+  PromptsProps,
+  PromptsRef,
+} from "./prompts";
+
 export type { ThinkProps, ThinkRef } from "./think";
 export type {
   ThoughtChainItemProps,

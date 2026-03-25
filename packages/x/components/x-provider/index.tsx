@@ -34,6 +34,10 @@ const XProvider = defineComponent({
       type: Object as PropType<XProviderProps["fileCard"]>,
       default: undefined,
     },
+    prompts: {
+      type: Object as PropType<XProviderProps["prompts"]>,
+      default: undefined,
+    },
     welcome: {
       type: Object as PropType<XProviderProps["welcome"]>,
       default: undefined,
@@ -61,6 +65,7 @@ const XProvider = defineComponent({
         bubble: props.bubble,
         conversations: props.conversations,
         fileCard: props.fileCard,
+        prompts: props.prompts,
         welcome: props.welcome,
       };
     });
