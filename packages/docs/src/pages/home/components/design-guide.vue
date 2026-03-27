@@ -11,20 +11,14 @@ import HomeContainer from "./home-container.vue";
 
 const { t } = useLocale();
 const router = useRouter();
-const COMMA = "\u00A0,\u00A0\u00A0\u00A0";
 
 const items = computed(() => [
   {
     key: "awaken",
     icon: "https://mdn.alipayobjects.com/huamei_lkxviz/afts/img/f14LTKOFxRsAAAAAQbAAAAgADtFMAQFr/original",
     label: t("home.designGuide.awaken"),
-    title: t("home.designGuide.awakenTitle")
-      .replace(", ", COMMA)
-      .replace("，", COMMA),
-    titleParts: t("home.designGuide.awakenTitle")
-      .replace(", ", COMMA)
-      .replace("，", COMMA)
-      .split(t("home.designGuide.awaken")),
+    titlePrefix: t("home.designGuide.awakenTitlePrefix"),
+    titleSuffix: t("home.designGuide.awakenTitleSuffix"),
     desc: t("home.designGuide.awakenDesc"),
     action: t("home.designGuide.awakenAction"),
     startColor: DESIGN_STAGE_COLOR.AWAKE.START,
@@ -35,13 +29,8 @@ const items = computed(() => [
     key: "express",
     icon: "https://mdn.alipayobjects.com/huamei_lkxviz/afts/img/dGfqSaM9ZxoAAAAAQaAAAAgADtFMAQFr/original",
     label: t("home.designGuide.express"),
-    title: t("home.designGuide.expressTitle")
-      .replace(", ", COMMA)
-      .replace("，", COMMA),
-    titleParts: t("home.designGuide.expressTitle")
-      .replace(", ", COMMA)
-      .replace("，", COMMA)
-      .split(t("home.designGuide.express")),
+    titlePrefix: t("home.designGuide.expressTitlePrefix"),
+    titleSuffix: t("home.designGuide.expressTitleSuffix"),
     desc: t("home.designGuide.expressDesc"),
     action: t("home.designGuide.expressAction"),
     startColor: DESIGN_STAGE_COLOR.EXPRESS.START,
@@ -52,13 +41,8 @@ const items = computed(() => [
     key: "confirm",
     icon: "https://mdn.alipayobjects.com/huamei_lkxviz/afts/img/BQaCTIUU-CkAAAAAQZAAAAgADtFMAQFr/original",
     label: t("home.designGuide.confirm"),
-    title: t("home.designGuide.confirmTitle")
-      .replace(", ", COMMA)
-      .replace("，", COMMA),
-    titleParts: t("home.designGuide.confirmTitle")
-      .replace(", ", COMMA)
-      .replace("，", COMMA)
-      .split(t("home.designGuide.confirm")),
+    titlePrefix: t("home.designGuide.confirmTitlePrefix"),
+    titleSuffix: t("home.designGuide.confirmTitleSuffix"),
     desc: t("home.designGuide.confirmDesc"),
     action: t("home.designGuide.confirmAction"),
     startColor: DESIGN_STAGE_COLOR.CONFIRM.START,
@@ -69,13 +53,8 @@ const items = computed(() => [
     key: "feedback",
     icon: "https://mdn.alipayobjects.com/huamei_lkxviz/afts/img/r-DuSZG-9NIAAAAAQdAAAAgADtFMAQFr/original",
     label: t("home.designGuide.feedback"),
-    title: t("home.designGuide.feedbackTitle")
-      .replace(", ", COMMA)
-      .replace("，", COMMA),
-    titleParts: t("home.designGuide.feedbackTitle")
-      .replace(", ", COMMA)
-      .replace("，", COMMA)
-      .split(t("home.designGuide.feedback")),
+    titlePrefix: t("home.designGuide.feedbackTitlePrefix"),
+    titleSuffix: t("home.designGuide.feedbackTitleSuffix"),
     desc: t("home.designGuide.feedbackDesc"),
     action: t("home.designGuide.feedbackAction"),
     startColor: DESIGN_STAGE_COLOR.FEEDBACK.START,
@@ -228,7 +207,7 @@ const styleState = useStyles();
               {{ item.label }}
             </div>
             <div :class="styleState.styles.chainItemTitle">
-              <span>{{ item.titleParts[0] }}</span>
+              <span>{{ item.titlePrefix }}</span>
               <span
                 :style="{
                   background: `linear-gradient(127deg, ${item.startColor} 23%, ${item.endColor} 100%)`,
@@ -239,7 +218,7 @@ const styleState = useStyles();
                 {{ item.label }}
               </span>
               <span style="max-width: 100%; display: inline-block">
-                {{ item.titleParts[1] || "" }}
+                {{ item.titleSuffix }}
               </span>
             </div>
             <div :class="styleState.styles.chainItemDesc">{{ item.desc }}</div>

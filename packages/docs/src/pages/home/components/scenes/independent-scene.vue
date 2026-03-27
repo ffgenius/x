@@ -9,8 +9,10 @@ import { useLocale } from "@/composables/use-locale";
 
 import { useMockChat } from "../../composables/use-mock-chat";
 
-const { t, locale } = useLocale();
-const chat = useMockChat(t("home.scenes.greeting"), t("home.scenes.waiting"));
+const { t } = useLocale();
+const chat = useMockChat(t("home.scenes.greeting"), t("home.scenes.waiting"), {
+  buildReply: query => t("home.scenes.mockReply", { query }),
+});
 const SEND_ICON =
   "https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*4e5sTY9lU3sAAAAAAAAAAAAADgCCAQ/original";
 
@@ -27,22 +29,6 @@ const designPresets = computed(() => [
   t("home.scenes.conversation"),
   t("home.scenes.interface"),
 ]);
-const welcomeTitle = computed(() =>
-  locale.value === "zh-CN"
-    ? "你好, 我是全新 AI 产品创造助手"
-    : "Hello, I am your AI Product Design Assistant",
-);
-const welcomeDesc = computed(() =>
-  locale.value === "zh-CN"
-    ? "基于 Ant Design 的 AGI 产品智能解决方案, 创造更美好的智能视界"
-    : "Powered by Ant Design's AGI solution to enhance intelligent, aesthetic visual experiences",
-);
-const helpText = computed(() =>
-  locale.value === "zh-CN" ? "我可以帮您:" : "I can assist you with:",
-);
-const guideTitle = computed(() =>
-  locale.value === "zh-CN" ? "Rich 设计指南" : "Rich Design Guidelines",
-);
 
 const chatItems = computed(() =>
   chat.items.value.filter(item => item.role !== "system"),
@@ -313,11 +299,15 @@ const placeholderMessage = computed<BubbleItemType>(() => ({
         src: "https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp",
         alt: "Ant Design X",
       }),
-      title: welcomeTitle.value,
-      description: welcomeDesc.value,
+      title: t("home.scenes.welcomePreviewTitle"),
+      description: t("home.scenes.welcomePreviewDesc"),
       variant: "borderless",
     }),
-    h("p", { class: styleState.styles.helperHeader }, helpText.value),
+    h(
+      "p",
+      { class: styleState.styles.helperHeader },
+      t("home.scenes.assistTitle"),
+    ),
     h("div", { class: styleState.styles.helperContent }, [
       h("div", { class: styleState.styles.helperCol }, [
         h(
@@ -350,7 +340,11 @@ const placeholderMessage = computed<BubbleItemType>(() => ({
         ),
       ]),
       h("div", { class: styleState.styles.helperCol }, [
-        h("p", { class: styleState.styles.helperColTitle }, guideTitle.value),
+        h(
+          "p",
+          { class: styleState.styles.helperColTitle },
+          t("home.scenes.designGuide"),
+        ),
         h(
           "div",
           { class: styleState.styles.helperList },

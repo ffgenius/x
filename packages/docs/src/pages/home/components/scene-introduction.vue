@@ -6,55 +6,31 @@ import { computed, ref } from "vue";
 
 import { useLocale } from "@/composables/use-locale";
 
+import { type HomeSceneKey, HOME_BREAKPOINTS } from "../constants";
 import HomeContainer from "./home-container.vue";
-import AssistantScene from "./scenes/assistant-scene.vue";
-import IndependentScene from "./scenes/independent-scene.vue";
-import NestScene from "./scenes/nest-scene.vue";
+import { homeSceneRegistry } from "./scenes/scene-registry";
 
 const { t } = useLocale();
-const isMobile = useMediaQuery("(max-width: 900px)");
-
-const tabItems = computed(() => [
-  {
-    key: "independent",
-    title: t("home.scenes.independentTitle"),
-    desc: t("home.scenes.independentDesc"),
-    img: "https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*YVjbTqbc7ngAAAAAAAAAAAAADgCCAQ/fmt.avif",
-  },
-  {
-    key: "assistant",
-    title: t("home.scenes.assistantTitle"),
-    desc: t("home.scenes.assistantDesc"),
-    img: "https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*kCojRo0SoAAAAAAAAAAAAAAADgCCAQ/fmt.avif",
-  },
-  {
-    key: "nest",
-    title: t("home.scenes.nestTitle"),
-    desc: t("home.scenes.nestDesc"),
-    img: "https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*krfsT5zBSuUAAAAAAAAAAAAADgCCAQ/fmt.avif",
-  },
-  {
-    key: "app",
-    title: t("home.scenes.appTitle"),
-    desc: t("home.scenes.appDesc"),
-    disabled: true,
-  },
-]);
-
-const mobileItems = computed(() => tabItems.value.filter(item => !!item.img));
-const active = ref("independent");
-const activeScene = computed(() => {
-  if (active.value === "independent") return IndependentScene;
-  if (active.value === "assistant") return AssistantScene;
-  if (active.value === "nest") return NestScene;
-  return null;
-});
+const isMobile = useMediaQuery(`(max-width: ${HOME_BREAKPOINTS.COMPACT}px)`);
+const sceneItems = computed(() =>
+  homeSceneRegistry.map(item => ({
+    ...item,
+    title: t(item.titleKey),
+    desc: t(item.descKey),
+  })),
+);
+const mobileItems = computed(() => sceneItems.value.filter(item => item.image));
+const active = ref<HomeSceneKey>("independent");
+const activeSceneItem = computed(
+  () => sceneItems.value.find(item => item.key === active.value) ?? null,
+);
+const activeScene = computed(() => activeSceneItem.value?.component ?? null);
 
 const useStyles = createStyles(({ token, css }) => ({
   container: css`
     position: relative;
 
-    @media screen and (max-width: 767.99px) {
+    @media screen and (max-width: ${HOME_BREAKPOINTS.MOBILE}px) {
       height: 100vh;
     }
   `,
@@ -208,14 +184,14 @@ const styleState = useStyles();
       >
         <h3>{{ item.title }}</h3>
         <p>{{ item.desc }}</p>
-        <img :src="item.img" :alt="item.title" loading="lazy" />
+        <img :src="item.image" :alt="item.title" loading="lazy" />
       </div>
     </Carousel>
 
     <div v-else :class="styleState.styles.content">
       <div :class="styleState.styles.tab">
         <Button
-          v-for="item in tabItems"
+          v-for="item in sceneItems"
           :key="item.key"
           type="text"
           :disabled="item.disabled"
@@ -230,7 +206,7 @@ const styleState = useStyles();
           <p :class="styleState.styles.itemDesc">{{ item.desc }}</p>
         </Button>
       </div>
-      <div v-if="active !== 'app'" :class="styleState.styles.tabContent">
+      <div v-if="activeScene" :class="styleState.styles.tabContent">
         <Transition name="scene-fade" mode="out-in">
           <component :is="activeScene" :key="active" />
         </Transition>

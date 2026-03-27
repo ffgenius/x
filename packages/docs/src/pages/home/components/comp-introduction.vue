@@ -1,14 +1,16 @@
 <script setup lang="ts">
+import type { PromptsProps } from "@antdv-next/x";
+
 import { DeleteOutlined, EditOutlined, EnterOutlined } from "@antdv-next/icons";
-import { Bubble, Sender, Welcome } from "@antdv-next/x";
+import { Bubble, Prompts, Sender, Welcome } from "@antdv-next/x";
 import { useMediaQuery } from "@vueuse/core";
 import { createStyles } from "antdv-style";
-import { computed } from "vue";
+import { computed, h } from "vue";
 import { useRouter } from "vue-router";
 
 import { useLocale } from "@/composables/use-locale";
 
-import { DESIGN_STAGE_COLOR, HOME_LINKS } from "../constants";
+import { DESIGN_STAGE_COLOR, HOME_BREAKPOINTS, HOME_LINKS } from "../constants";
 import HomeContainer from "./home-container.vue";
 
 interface HomeCard {
@@ -31,8 +33,8 @@ interface HomeCard {
 
 const { t, locale } = useLocale();
 const router = useRouter();
-const isTablet = useMediaQuery("(max-width: 1180px)");
-const isMobile = useMediaQuery("(max-width: 900px)");
+const isTablet = useMediaQuery(`(max-width: ${HOME_BREAKPOINTS.TABLET}px)`);
+const isMobile = useMediaQuery(`(max-width: ${HOME_BREAKPOINTS.COMPACT}px)`);
 
 const items = computed<HomeCard[]>(() => [
   {
@@ -52,7 +54,7 @@ const items = computed<HomeCard[]>(() => [
     tag: t("home.components.promptsTag"),
     startColor: DESIGN_STAGE_COLOR.AWAKE.START,
     endColor: DESIGN_STAGE_COLOR.AWAKE.END,
-    path: HOME_LINKS.welcome,
+    path: HOME_LINKS.prompts,
     previewType: "prompts",
   },
   {
@@ -178,12 +180,61 @@ const useStyles = createStyles(({ token, css }) => ({
     background: linear-gradient(135deg, #ffffff26 14%, #ffffff0d 59%);
     border-radius: 20px;
     padding: 18px;
+
+    .antd-welcome-icon {
+      margin-bottom: 12px;
+
+      img {
+        width: 48px;
+        height: 48px;
+      }
+    }
+
+    .antd-welcome-title.ant-typography {
+      margin-bottom: 6px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .antd-welcome-description.ant-typography {
+      font-size: 11px;
+      line-height: 1.6;
+    }
   `,
   previewPrompts: css`
     width: min(290px, 100%);
     background: linear-gradient(135deg, #ffffff26 14%, #ffffff0d 59%);
     border-radius: 20px;
     padding: 16px;
+    pointer-events: none;
+
+    .antd-prompts-title {
+      margin-bottom: 10px;
+    }
+
+    .antd-prompts-list {
+      flex-direction: column;
+      gap: 8px;
+      overflow: visible;
+    }
+
+    .antd-prompts-item {
+      width: 100%;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .antd-prompts-content {
+      gap: 0;
+    }
+
+    .antd-prompts-desc {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 12px;
+      line-height: 20px;
+    }
   `,
   previewPromptsTitle: css`
     margin: 0;
@@ -193,23 +244,10 @@ const useStyles = createStyles(({ token, css }) => ({
     font-weight: 500;
   `,
   previewPromptsDesc: css`
-    margin: 4px 0 10px;
+    margin: 4px 0 0;
     color: rgba(255, 255, 255, 0.65);
     font-size: 12px;
     line-height: 20px;
-  `,
-  previewPromptItem: css`
-    width: 100%;
-    border: none;
-    border-radius: 12px;
-    padding: 8px 12px;
-    margin-top: 8px;
-    text-align: left;
-    color: rgba(255, 255, 255, 0.9);
-    background: rgba(255, 255, 255, 0.06);
-    font-size: 12px;
-    line-height: 20px;
-    cursor: pointer;
   `,
   previewBubble: css`
     width: min(320px, 100%);
@@ -269,30 +307,33 @@ const useStyles = createStyles(({ token, css }) => ({
 const styleState = useStyles();
 const welcomeIcon =
   "https://mdn.alipayobjects.com/huamei_iwk9zp/afts/img/A*s5sNRo5LjfQAAAAAAAAAAAAADgCCAQ/fmt.webp";
-const previewWelcomeTitle = computed(() =>
-  locale.value === "zh-CN"
-    ? "你好，我是全新 AI 产品创造助手"
-    : "Hello, I am your AI Product Design Assistant",
-);
-const previewWelcomeDesc = computed(() =>
-  locale.value === "zh-CN"
-    ? "基于 Ant Design 的 AGI 产品智能解决方案，创造更美好的智能视界。"
-    : "Powered by Ant Design's AGI solution to create better intelligent experiences.",
-);
-const previewPromptsTitle = computed(() =>
-  locale.value === "zh-CN" ? "我可以帮您：" : "I can assist you with:",
-);
-const previewPromptsDesc = computed(() =>
-  locale.value === "zh-CN"
-    ? "点击问题可直接发起请求"
-    : "Click a question to send it immediately",
-);
-const previewPromptItems = computed(() => [
-  t("home.scenes.question1"),
-  t("home.scenes.question2"),
-  t("home.scenes.question3"),
-  t("home.scenes.question4"),
-]);
+function renderPreviewPromptsHeading() {
+  h("div", [
+    h(
+      "p",
+      { class: styleState.styles.previewPromptsTitle },
+      t("home.scenes.assistTitle"),
+    ),
+    h(
+      "p",
+      { class: styleState.styles.previewPromptsDesc },
+      t("home.scenes.helpDesc"),
+    ),
+  ]);
+}
+
+function getPreviewPromptItems(): PromptsProps["items"] {
+  return [
+    {
+      key: "1",
+      description: t("home.scenes.question1"),
+    },
+    {
+      key: "2",
+      description: t("home.scenes.question2"),
+    },
+  ];
+}
 
 const gridColumns = computed(() => {
   if (isMobile.value) return "1fr";
@@ -350,8 +391,8 @@ function goto(path: string) {
             v-else-if="item.previewType === 'welcome'"
             :class="styleState.styles.previewWelcome"
             :icon="welcomeIcon"
-            :title="previewWelcomeTitle"
-            :description="previewWelcomeDesc"
+            :title="t('home.scenes.welcomePreviewTitle')"
+            :description="t('home.scenes.welcomePreviewDesc')"
             variant="borderless"
           />
 
@@ -359,33 +400,23 @@ function goto(path: string) {
             v-else-if="item.previewType === 'prompts'"
             :class="styleState.styles.previewPrompts"
           >
-            <p :class="styleState.styles.previewPromptsTitle">
-              {{ previewPromptsTitle }}
-            </p>
-            <p :class="styleState.styles.previewPromptsDesc">
-              {{ previewPromptsDesc }}
-            </p>
-            <button
-              v-for="(prompt, index) in previewPromptItems"
-              :key="`comp_prompt_${index}`"
-              type="button"
-              :class="styleState.styles.previewPromptItem"
-            >
-              {{ prompt }}
-            </button>
+            <Prompts
+              :title="renderPreviewPromptsHeading()"
+              :items="getPreviewPromptItems()"
+            />
           </div>
 
           <Bubble
             v-else-if="item.previewType === 'bubble'"
             :class="styleState.styles.previewBubble"
-            content="Processing your request..."
+            :content="t('home.components.bubblePreviewContent')"
             :typing="{ effect: 'typing', step: 5, interval: 20 }"
           />
 
           <Bubble
             v-else-if="item.previewType === 'actions'"
             :class="styleState.styles.previewBubble"
-            content="Result actions: copy, retry, feedback"
+            :content="t('home.components.actionsPreviewContent')"
           >
             <template #footer>
               <div :class="styleState.styles.actionFooter">

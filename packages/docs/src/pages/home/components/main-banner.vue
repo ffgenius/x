@@ -5,20 +5,19 @@ import { useRouter } from "vue-router";
 
 import { useLocale } from "@/composables/use-locale";
 
-import { HOME_LINKS } from "../constants";
+import {
+  getHomeRichSpecLink,
+  HOME_BREAKPOINTS,
+  HOME_LAYOUT,
+  HOME_LINKS,
+} from "../constants";
 import LottiePlayer from "./lottie-player.vue";
 
 const { t, locale } = useLocale();
 const router = useRouter();
 const animationDirection = ref<1 | -1>(1);
-const MOBILE_MAX_WIDTH = 767.99;
-const PC_MAX_WIDTH = 1560;
-const PC_CONTAINER_MARGIN = 100;
-const HEADER_HEIGHT = 80;
 
-const designUrl = computed(() =>
-  locale.value === "en-US" ? HOME_LINKS.richSpecEn : HOME_LINKS.richSpecZh,
-);
+const designUrl = computed(() => getHomeRichSpecLink(locale.value));
 
 const useStyles = createStyles(({ token, css }) => ({
   root: css`
@@ -32,7 +31,7 @@ const useStyles = createStyles(({ token, css }) => ({
     font-family: AlibabaPuHuiTi, ${token.fontFamily}, sans-serif;
     overflow: hidden;
 
-    @media only screen and (max-width: ${MOBILE_MAX_WIDTH}px) {
+    @media only screen and (max-width: ${HOME_BREAKPOINTS.MOBILE}px) {
       height: calc(100vh - ${token.paddingLG}px);
     }
   `,
@@ -48,29 +47,29 @@ const useStyles = createStyles(({ token, css }) => ({
   container: css`
     width: 100%;
     margin: 0 auto;
-    max-width: ${PC_MAX_WIDTH - PC_CONTAINER_MARGIN * 2}px;
+    max-width: ${HOME_LAYOUT.MAX_WIDTH - HOME_LAYOUT.CONTAINER_MARGIN * 2}px;
     height: 100%;
-    max-height: calc(100vh - ${HEADER_HEIGHT * 2}px);
+    max-height: calc(100vh - ${HOME_LAYOUT.HEADER_HEIGHT * 2}px);
     position: relative;
     z-index: 1;
 
-    @media only screen and (max-width: ${PC_MAX_WIDTH}px) {
-      max-width: calc(100vw - ${PC_CONTAINER_MARGIN * 2}px);
+    @media only screen and (max-width: ${HOME_LAYOUT.MAX_WIDTH}px) {
+      max-width: calc(100vw - ${HOME_LAYOUT.CONTAINER_MARGIN * 2}px);
     }
 
-    @media only screen and (max-width: ${MOBILE_MAX_WIDTH}px) {
+    @media only screen and (max-width: ${HOME_BREAKPOINTS.MOBILE}px) {
       max-width: calc(100vw - ${token.marginLG * 2}px);
     }
   `,
   titleWrap: css`
-    max-width: ${MOBILE_MAX_WIDTH - token.padding * 2}px;
+    max-width: ${HOME_BREAKPOINTS.MOBILE - token.padding * 2}px;
     position: absolute;
     top: 50%;
     inset-inline-start: 0;
     transform: translateY(-50%);
     z-index: 1;
 
-    @media only screen and (max-width: ${MOBILE_MAX_WIDTH}px) {
+    @media only screen and (max-width: ${HOME_BREAKPOINTS.MOBILE}px) {
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -87,7 +86,7 @@ const useStyles = createStyles(({ token, css }) => ({
     font-weight: 700;
     color: #fff;
 
-    @media only screen and (max-width: ${MOBILE_MAX_WIDTH}px) {
+    @media only screen and (max-width: ${HOME_BREAKPOINTS.MOBILE}px) {
       font-size: 54px !important;
     }
   `,
@@ -98,7 +97,7 @@ const useStyles = createStyles(({ token, css }) => ({
     font-weight: 700;
     color: #fff;
 
-    @media only screen and (max-width: ${MOBILE_MAX_WIDTH}px) {
+    @media only screen and (max-width: ${HOME_BREAKPOINTS.MOBILE}px) {
       font-size: 54px !important;
     }
   `,
@@ -107,7 +106,7 @@ const useStyles = createStyles(({ token, css }) => ({
     display: inline-block;
     position: relative;
 
-    @media only screen and (max-width: ${MOBILE_MAX_WIDTH}px) {
+    @media only screen and (max-width: ${HOME_BREAKPOINTS.MOBILE}px) {
       transform: scale(0.7);
       top: 6px;
     }
@@ -146,7 +145,7 @@ const useStyles = createStyles(({ token, css }) => ({
     gap: ${token.paddingLG}px;
     flex-wrap: wrap;
 
-    @media only screen and (max-width: ${MOBILE_MAX_WIDTH}px) {
+    @media only screen and (max-width: ${HOME_BREAKPOINTS.MOBILE}px) {
       justify-content: center;
     }
   `,
@@ -168,7 +167,7 @@ const useStyles = createStyles(({ token, css }) => ({
     user-select: none;
     transition: all 0.2s;
 
-    @media only screen and (max-width: ${MOBILE_MAX_WIDTH}px) {
+    @media only screen and (max-width: ${HOME_BREAKPOINTS.MOBILE}px) {
       padding: 0 ${token.paddingLG}px;
     }
   `,
@@ -244,15 +243,15 @@ const useStyles = createStyles(({ token, css }) => ({
     position: absolute;
     top: 50%;
     inset-inline-end: 0;
-    transform: translate(${PC_CONTAINER_MARGIN}px, -40%);
+    transform: translate(${HOME_LAYOUT.CONTAINER_MARGIN}px, -40%);
     z-index: 0;
 
-    @media only screen and (max-width: ${MOBILE_MAX_WIDTH}px) {
+    @media only screen and (max-width: ${HOME_BREAKPOINTS.MOBILE}px) {
       display: none;
     }
   `,
   descMobileAlign: css`
-    @media only screen and (max-width: ${MOBILE_MAX_WIDTH}px) {
+    @media only screen and (max-width: ${HOME_BREAKPOINTS.MOBILE}px) {
       margin-inline: auto;
     }
   `,
@@ -308,11 +307,7 @@ function onBackgroundLottieLoad(animation: {
 
     <div :class="styleState.styles.container">
       <div :class="styleState.styles.titleWrap">
-        <h1 :class="styleState.styles.logo">
-          Ant Des<span :class="styleState.styles.iWrap">
-            I<span :class="styleState.styles.iStar" /> </span
-          >gn X
-        </h1>
+        <h1 :class="styleState.styles.logo">Antd Next X</h1>
         <h1 :class="styleState.styles.title">
           {{ t("home.mainBanner.slogan") }}
         </h1>

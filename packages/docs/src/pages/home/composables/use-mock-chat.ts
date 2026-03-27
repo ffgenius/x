@@ -9,10 +9,17 @@ export interface MockChatItem {
   loading?: boolean;
 }
 
-let seed = 0;
-const nextKey = () => `home_msg_${seed++}`;
+export interface UseMockChatOptions {
+  buildReply?: (query: string) => string;
+}
 
-export function useMockChat(greeting: string, placeholder: string) {
+export function useMockChat(
+  greeting: string,
+  placeholder: string,
+  options: UseMockChatOptions = {},
+) {
+  let seed = 0;
+  const nextKey = () => `home_msg_${seed++}`;
   const items = ref<MockChatItem[]>([
     {
       key: nextKey(),
@@ -39,7 +46,9 @@ export function useMockChat(greeting: string, placeholder: string) {
           ? {
               key: item.key,
               role: "ai",
-              content: `Mock success return. You said: ${query}`,
+              content:
+                options.buildReply?.(query) ??
+                `Mock success return. You said: ${query}`,
               loading: false,
             }
           : item,

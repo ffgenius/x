@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { createStyles } from "antdv-style";
 
-const MOBILE_MAX_WIDTH = 767.99;
-const PC_MAX_WIDTH = 1560;
-const PC_CONTAINER_MARGIN = 100;
+import { HOME_BREAKPOINTS, HOME_LAYOUT } from "../constants";
 
 withDefaults(
   defineProps<{
@@ -20,14 +18,14 @@ const useStyles = createStyles(({ token, css }) => ({
   container: css`
     width: 100%;
     margin: 0 auto;
-    max-width: ${PC_MAX_WIDTH - PC_CONTAINER_MARGIN * 2}px;
+    max-width: ${HOME_LAYOUT.MAX_WIDTH - HOME_LAYOUT.CONTAINER_MARGIN * 2}px;
     font-family: AlibabaPuHuiTi, ${token.fontFamily}, sans-serif;
 
-    @media only screen and (max-width: ${PC_MAX_WIDTH}px) {
-      max-width: calc(100vw - ${PC_CONTAINER_MARGIN * 2}px);
+    @media only screen and (max-width: ${HOME_LAYOUT.MAX_WIDTH}px) {
+      max-width: calc(100vw - ${HOME_LAYOUT.CONTAINER_MARGIN * 2}px);
     }
 
-    @media only screen and (max-width: ${MOBILE_MAX_WIDTH}px) {
+    @media only screen and (max-width: ${HOME_BREAKPOINTS.MOBILE}px) {
       max-width: calc(100vw - ${token.marginLG * 2}px);
     }
   `,
@@ -38,7 +36,7 @@ const useStyles = createStyles(({ token, css }) => ({
     padding-bottom: ${token.padding}px;
     margin: 0;
 
-    @media only screen and (max-width: ${MOBILE_MAX_WIDTH}px) {
+    @media only screen and (max-width: ${HOME_BREAKPOINTS.MOBILE}px) {
       font-size: ${token.fontSizeHeading1}px;
     }
   `,

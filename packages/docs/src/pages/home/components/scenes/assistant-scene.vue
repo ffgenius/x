@@ -10,10 +10,13 @@ import { useLocale } from "@/composables/use-locale";
 
 import { useMockChat } from "../../composables/use-mock-chat";
 
-const { t, locale } = useLocale();
+const { t } = useLocale();
 const chat = useMockChat(
   t("home.scenes.assistantGreeting"),
   t("home.scenes.waiting"),
+  {
+    buildReply: query => t("home.scenes.mockReply", { query }),
+  },
 );
 
 const SEND_ICON =
@@ -25,9 +28,6 @@ const presets = computed(() => [
   t("home.scenes.question3"),
   t("home.scenes.question4"),
 ]);
-const helpLabel = computed(() =>
-  locale.value === "zh-CN" ? "我可以帮您:" : "I can assist you with:",
-);
 
 const chatItems = computed(() =>
   chat.items.value.filter(item => item.role !== "system"),
@@ -254,7 +254,11 @@ const placeholderMessage = computed<BubbleItemType>(() => ({
     description: t("home.scenes.helpDesc"),
   }),
   footer: h("div", { class: styleState.styles.promptWrap }, [
-    h("p", { class: styleState.styles.promptTitle }, helpLabel.value),
+    h(
+      "p",
+      { class: styleState.styles.promptTitle },
+      t("home.scenes.assistTitle"),
+    ),
     ...presets.value.map((prompt, index) =>
       h(
         "button",

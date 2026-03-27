@@ -4,14 +4,12 @@ import { computed } from "vue";
 
 import { useLocale } from "@/composables/use-locale";
 
-import { HOME_LINKS } from "../constants";
+import { getHomeRichSpecLink } from "../constants";
 import HomeContainer from "./home-container.vue";
 import LottiePlayer from "./lottie-player.vue";
 
 const { t, locale } = useLocale();
-const specUrl = computed(() =>
-  locale.value === "en-US" ? HOME_LINKS.richSpecEn : HOME_LINKS.richSpecZh,
-);
+const specUrl = computed(() => getHomeRichSpecLink(locale.value));
 
 const useStyles = createStyles(({ css }) => ({
   link: css`
